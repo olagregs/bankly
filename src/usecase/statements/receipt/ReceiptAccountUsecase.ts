@@ -1,7 +1,6 @@
 import { AppDataSource, createConnection } from "../../..";
 import { Statement } from "../../../entities/Statement";
 
-
 export class ReceiptAccountUsecase {
   async execute(account_id: string): Promise<Statement[]> {
     await createConnection();

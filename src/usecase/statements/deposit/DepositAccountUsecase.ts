@@ -19,10 +19,6 @@ export class DepositAccountUsecase {
       where: { id: account_id }
     });
 
-    if (!account) {
-      throw new Error("Invalid account id");
-    }
-
     await accountRepository.update(account_id, {
       balance: account.balance + amount,
       updated_at: new Date()

@@ -2,7 +2,7 @@ import { AppDataSource, createConnection } from "../../..";
 import { Statement } from "../../../entities/Statement";
 
 export class TransferenceStatusUsecase {
-  async execute(transaction_id: string): Promise<string> {
+  async execute(transaction_id: string): Promise<String> {
     await createConnection();
 
     const repository = AppDataSource.getRepository(Statement);

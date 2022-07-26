@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { TransferenceStatusUsecase } from "./TransferenceStatusUsecase";
 
 export class TransferenceStatusController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { transaction_id } = request.params;
 
     const service = new TransferenceStatusUsecase();

@@ -9,7 +9,7 @@ interface IWithdraw {
 }
 
 export class WithdrawAccountUsecase {
-  async execute({ description, amount, account_id }: IWithdraw) {
+  async execute({ description, amount, account_id }: IWithdraw): Promise<Object> {
     await createConnection();
 
     const statementsRepository = AppDataSource.getRepository(Statement);
@@ -19,16 +19,13 @@ export class WithdrawAccountUsecase {
       where: { id: account_id }
     });
 
-    if (!account) {
-      throw new Error("Invalid account id");
-    }
-
     if (account.balance < amount) {
       throw new Error("Insuficient founds");
     }
 
     await accountRepository.update(account_id, {
-      balance: account.balance - amount
+      balance: account.balance - amount,
+      updated_at: new Date()
     });
 
     const statement = statementsRepository.create({

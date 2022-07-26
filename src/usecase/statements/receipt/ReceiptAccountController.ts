@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+
 import { ReceiptAccountUsecase } from "./ReceiptAccountUsecase";
 
-
 export class ReceiptAccountController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request;
 
     const service = new ReceiptAccountUsecase();

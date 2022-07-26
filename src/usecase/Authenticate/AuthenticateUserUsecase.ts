@@ -11,7 +11,7 @@ interface IAuth {
 }
 
 export class AuthenticateUserUsecase {
-  async execute({ account_id, password }: IAuth): Promise<string> {
+  async execute({ account_id, password }: IAuth): Promise<String> {
     await createConnection();
 
     const accountRepository = AppDataSource.getRepository(Account);
@@ -22,18 +22,18 @@ export class AuthenticateUserUsecase {
     });
 
     if (!account) {
-      throw new Error("Acount number or password incorrect1");
+      throw new Error("Account number or password incorrect");
     }
 
     const validadePassword = await compare(password, account.password);
 
     if (!validadePassword) {
-      throw new Error("Acount number or password incorrect2");
+      throw new Error("Account number or password incorrect");
     }
 
     const token = sign({}, "583cb424ed6f4fb142cceaf90941eea1", {
       subject: account_id,
-      expiresIn: "30m"
+      expiresIn: "10m"
     });
 
     const statement = statementsRepository.create({

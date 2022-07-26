@@ -8,12 +8,8 @@ export class ListAccountUsecase {
     const repository = AppDataSource.getRepository(Account);
 
     const account = await repository.findOne({
-      where: { id: account_id },
-      relations: {
-        user: true,
-        category: true
-      }
-    });
+      where: { id: account_id }
+    })
 
     if (!account) {
       throw new Error("Account not found");

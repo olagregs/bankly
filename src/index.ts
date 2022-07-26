@@ -33,7 +33,7 @@ export const AppDataSource = new DataSource({
   ],
 });
 
-export async function createConnection(host = "127.0.0.1") {
+export async function createConnection(host = "db") {
   AppDataSource.setOptions({ host });
 
   if (!AppDataSource.isInitialized) {

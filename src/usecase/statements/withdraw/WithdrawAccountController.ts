@@ -3,11 +3,9 @@ import { Request, Response } from "express";
 import { WithdrawAccountUsecase } from "./WithdrawAccountUsecase";
 
 export class WithdrawAccountController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { description, amount } = request.body;
     const { account_id } = request;
-
-    console.log(account_id);
 
     const service = new WithdrawAccountUsecase();
 

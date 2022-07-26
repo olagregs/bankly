@@ -4,7 +4,7 @@ import { Statement } from "../../../entities/Statement";
 
 
 export class BalanceAccountUsecase {
-  async execute(account_id: string): Promise<number> {
+  async execute(account_id: string): Promise<Number> {
     await createConnection();
 
     const AccountRepository = AppDataSource.getRepository(Account);

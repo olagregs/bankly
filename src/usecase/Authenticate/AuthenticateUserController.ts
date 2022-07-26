@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+
 import { AuthenticateUserUsecase } from "./AuthenticateUserUsecase";
 
-
 export class AuthenticateUserController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { account_id, password } = request.body;
 
     const service = new AuthenticateUserUsecase();

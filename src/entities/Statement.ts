@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, JoinColumn, CreateDateColumn, PrimaryColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, Relation, CreateDateColumn, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Account } from './Account';
 
@@ -18,8 +18,8 @@ export class Statement {
   amount: number;
 
   @ManyToOne(() => Account)
-  @JoinColumn()
-  account: Account;
+  @JoinColumn({ name: "account" })
+  account: Relation<Account>;
 
   @Column()
   account_id: string;

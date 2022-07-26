@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+
 import { ListAccountUsecase } from "./ListAccountUsecase";
 
-
 export class ListAccountController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request.params;
 
     const service = new ListAccountUsecase();

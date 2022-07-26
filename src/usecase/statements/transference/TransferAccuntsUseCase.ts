@@ -11,12 +11,36 @@ interface ICreateStatement {
   destination_account_id: string;
 }
 
+interface ITransfer {
+  originAccount: Account,
+  destinationAccount: Account,
+  amount: number
+}
+
+async function transfer({ originAccount, destinationAccount, amount }: ITransfer): Promise<void> {
+  const accountRepository = AppDataSource.getRepository(Account);
+
+  await accountRepository.update(originAccount.id, {
+    balance: originAccount.balance - amount,
+    updated_at: new Date()
+  });
+
+  await accountRepository.update(destinationAccount.id, {
+    balance: destinationAccount.balance + amount,
+    updated_at: new Date()
+  });
+}
+
 export class TransferAccuntsUseCase {
-  async execute({ description, amount, origin_account_id, destination_account_id }: ICreateStatement): Promise<string> {
+  async execute({ description, amount, origin_account_id, destination_account_id }: ICreateStatement): Promise<String> {
     await createConnection();
 
     const statementsRepository = AppDataSource.getRepository(Statement);
     const accountRepository = AppDataSource.getRepository(Account);
+
+    if (origin_account_id === destination_account_id) {
+      throw new Error("You cannot make a transference for yourself");
+    }
 
     const originAccount = await accountRepository.findOne({
       where: { id: origin_account_id }
@@ -34,21 +58,13 @@ export class TransferAccuntsUseCase {
       throw new Error("Destination account is not valid");
     }
 
-    await accountRepository.update(origin_account_id, {
-      balance: originAccount.balance - amount,
-      updated_at: new Date()
-    });
-
-    await accountRepository.update(destination_account_id, {
-      balance: destinationAccount.balance + amount,
-      updated_at: new Date()
-    });
+    transfer({ originAccount, destinationAccount, amount });
 
     const transactionId = uuid();
 
     const originStatement = statementsRepository.create({
       id: transactionId + "-s",
-      operation: "Transference",
+      operation: "Transference done",
       description: description,
       amount,
       account_id: origin_account_id,
@@ -57,8 +73,8 @@ export class TransferAccuntsUseCase {
 
     const destinationStatement = statementsRepository.create({
       id: transactionId + "-r",
-      operation: description,
-      description: "Received transaction",
+      operation: "Transference Received",
+      description: description,
       amount,
       account_id: destination_account_id,
       status: "completed"

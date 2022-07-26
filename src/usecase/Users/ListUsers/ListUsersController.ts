@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { ListUsersUsecase } from './ListUsersUsecase';
 
 export class ListUsersController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const service = new ListUsersUsecase();
 
     const users = await service.execute();

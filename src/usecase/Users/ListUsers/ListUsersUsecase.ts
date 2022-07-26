@@ -1,7 +1,6 @@
 import { AppDataSource, createConnection } from "../../..";
 import { User } from "../../../entities/User";
 
-
 export class ListUsersUsecase {
   async execute(): Promise<User[]> {
     await createConnection();

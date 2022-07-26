@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+
 import { TransferAccuntsUseCase } from "./TransferAccuntsUseCase";
 
-
 export class TransferAccountController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { description, amount, destination_account_id } = request.body;
     const { account_id } = request;
 

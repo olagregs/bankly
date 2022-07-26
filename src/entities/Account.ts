@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, ManyToOne, OneToOne, JoinColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryColumn, ManyToOne, OneToOne, JoinColumn, Relation, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid"
 
 import { User } from "./User";
@@ -11,15 +11,15 @@ export class Account {
   readonly id: string;
 
   @ManyToOne(() => User)
-  @JoinColumn()
-  user: User;
+  @JoinColumn({ name: "user" })
+  user: Relation<User>;
 
   @Column()
   user_id: string;
 
   @OneToOne(() => Category)
-  @JoinColumn()
-  category: Category;
+  @JoinColumn({ name: "category" })
+  category: Relation<Category>
 
   @Column()
   category_id: string;

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import { ListAllAccountsUsecase } from "./ListAllAccountsUsecase";
 
 export class ListAllAccountsController {

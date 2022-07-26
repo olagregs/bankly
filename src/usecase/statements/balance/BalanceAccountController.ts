@@ -3,7 +3,7 @@ import { BalanceAccountUsecase } from "./BalanceAccountUsecase";
 
 
 export class BalanceAccountController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request;
 
     const service = new BalanceAccountUsecase();

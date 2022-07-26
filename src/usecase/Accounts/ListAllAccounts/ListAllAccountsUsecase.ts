@@ -2,7 +2,7 @@ import { AppDataSource, createConnection } from "../../..";
 import { Account } from "../../../entities/Account";
 
 export class ListAllAccountsUsecase {
-  async execute() {
+  async execute(): Promise<Account[]> {
     await createConnection();
 
     const repository = AppDataSource.getRepository(Account);

@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
+
 import { CreateCategoriesUsecase } from "./CreateCategoriesUsecase";
 
 export class CreateCategoriesController {
-  async handle(request: Request, response: Response) {
+  async handle(request: Request, response: Response): Promise<Response> {
     const { account_type } = request.body;
 
     const service = new CreateCategoriesUsecase();
-
 
     try {
       const category = await service.execute(account_type);
@@ -17,6 +17,5 @@ export class CreateCategoriesController {
         message: err.message
       })
     }
-
   }
 }
